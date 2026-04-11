@@ -63,7 +63,7 @@ class IntentRegProc:
         return "\n".join(f"{role}: {text}" for role, text in turns)
 
 
-    def validate_record(self, record, expected_label):
+    def validate_record(self, record, expected_label = None):
         label = str(record.get("label", "")).strip()
         dialog = self.normalize_dialog(str(record.get("dialog", "")).strip())
         if expected_label and label != expected_label:
@@ -109,8 +109,9 @@ class IntentRegProc:
         return result
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 # определяем справочник интентов
-registry = IntentRegProc("structures/intent.json")
+registry = IntentRegProc(PROJECT_ROOT / "structures" / "intent.json")
 INTENT_SPECS = registry.intents
 LABEL_TO_ID = {label: idx for idx, label in enumerate(INTENT_SPECS)}
 ID_TO_LABEL = {idx: label for label, idx in LABEL_TO_ID.items()}
