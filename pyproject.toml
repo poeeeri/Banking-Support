@@ -1,0 +1,35 @@
+[project]
+name = "banking-support"
+version = "0.1.0"
+description = "Synthetic banking support dialog generation and text classification experiments."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+authors = [
+    { name = "Lenovo", email = "lenovo@example.com" }
+]
+dependencies = [
+    "accelerate>=1.5.0",
+    "datasets>=3.5.0",
+    "evaluate>=0.4.3",
+    "ipykernel>=6.29.0",
+    "jupyter>=1.1.1",
+    "pandas>=2.2.0",
+    "protobuf>=5.0.0",
+    "scikit-learn>=1.5.0",
+    "sentencepiece>=0.2.0",
+    "torch>=2.6.0",
+    "transformers>=4.51.0",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.cuda]
+optional = true
+
+[tool.poetry.group.cuda.dependencies]
+bitsandbytes = ">=0.45.0"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
