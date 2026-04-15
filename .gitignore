@@ -7,3 +7,5 @@ outputs/
 data/generated/
 models/
 poetry.lock
+clearml.conf
+artifacts/
