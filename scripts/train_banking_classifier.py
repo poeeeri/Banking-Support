@@ -195,7 +195,7 @@ def main():
     )
     training_args = TrainingArguments(
         output_dir = args.output_dir,
-        learning_rate = 2e-5,
+        learning_rate=args.lr,
         per_device_train_batch_size=args.train_batch_size,
         per_device_eval_batch_size=args.eval_batch_size,
         num_train_epochs=args.num_train_epochs,
@@ -234,7 +234,7 @@ def main():
         references,
         predictions,
         labels=list(range(len(INTENT_SPECS))),
-        target_names=[spec.label for spec in INTENT_SPECS],
+        target_names=[ID_TO_LABEL[idx] for idx in range(len(INTENT_SPECS))],
         output_dict=True,
         zero_division=0,
     )
