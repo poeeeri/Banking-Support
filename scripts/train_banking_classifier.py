@@ -17,6 +17,7 @@ from sklearn.metrics import accuracy_score, classification_report, f1_score
 from pathlib import Path
 from common import ID_TO_LABEL, LABEL_TO_ID, INTENT_SPECS
 from datasets import Dataset
+from clearml import Task
 
 
 def parse_args() -> argparse.Namespace:
@@ -154,6 +155,15 @@ def build_prediction_samples(prediction_rows):
 def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     args = parse_args()
+
+    task = Task.init(
+        project_name="Banking-Support",
+        task_name="rubert-intent-classifier",
+        task_type=Task.TaskTypes.training,
+        reuse_last_task_id=False,
+    )
+    task.connect(vars(args))
+
     set_seed(args.seed)
     output_dir = Path(args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -197,7 +207,7 @@ def main():
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
         greater_is_better=True,
-        report_to="none",
+        report_to="clearml",
         save_total_limit=2
     )
 
